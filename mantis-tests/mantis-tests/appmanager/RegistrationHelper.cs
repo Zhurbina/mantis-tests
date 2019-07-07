@@ -22,15 +22,15 @@ namespace mantis_tests
             OpenRegistrationForm();
             FillRegistrationForm(account);
 
-            SubmitRegistration();
+            SubmitOneButtonForm();
 
             String url = GetConfirmationURL(account);
             FillPasswordForm(url, account);
-            SubmitPasswordForm();
+            SubmitOneButtonForm();
 
         }
 
-        private void SubmitPasswordForm()
+        public void SubmitOneButtonForm()
         {
             driver.FindElement(By.CssSelector("input.button")).Click();
         }
@@ -41,7 +41,11 @@ namespace mantis_tests
 
             driver.FindElement(By.Name("password")).SendKeys(account.Password);
             driver.FindElement(By.Name("password_confirm")).SendKeys(account.Password);
+        }
 
+        internal void InitLogOut()
+        {
+            driver.FindElement(By.XPath("/html/body/table[2]/tbody/tr/td[1]/a[9]")).Click();
         }
 
         private string GetConfirmationURL(AccountData account)
@@ -56,20 +60,22 @@ namespace mantis_tests
             driver.FindElements(By.CssSelector("span.bracket-link"))[0].Click();
         }
 
-        private void SubmitRegistration()
-        {
-            driver.FindElement(By.CssSelector("input.button")).Click();
-        }
-
         private void FillRegistrationForm(AccountData account)
         {
             driver.FindElement(By.Name("username")).SendKeys(account.Name);
             driver.FindElement(By.Name("email")).SendKeys(account.Email);
         }
 
-        private void OpenMainPage()
+        public void OpenMainPage()
         {
             manager.Driver.Url = "http://localhost/mantisbt-1.2.17/login_page.php";
+        }
+
+        public void FillAuthForm(AccountData admin)
+        {
+            driver.FindElement(By.Name("username")).SendKeys(admin.Name);
+            driver.FindElement(By.Name("password")).SendKeys(admin.Password);
+
         }
     }
 }
