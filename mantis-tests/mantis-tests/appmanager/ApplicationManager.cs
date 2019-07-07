@@ -19,8 +19,6 @@ namespace mantis_tests
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
 
-
-
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
@@ -28,6 +26,7 @@ namespace mantis_tests
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(100);
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
+            James = new JamesHelper(this);
         }
 
 
@@ -68,5 +67,6 @@ namespace mantis_tests
 
         public RegistrationHelper Registration { get; set; }
         public FtpHelper Ftp { get; set; }
+        public JamesHelper James { get; set; }
     }
 }
